@@ -10,7 +10,12 @@ import {
   Pagination,
   TextField,
   Paper,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
 } from "@mui/material";
+import Grid from '@mui/material/Grid2';
 import { ClipLoader } from "react-spinners";
 import { useGetCryptosQuery } from "../services/cryptoApi";
 
@@ -19,7 +24,7 @@ const Cryptocurrencies = () => {
   const [cryptos, setCryptos] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [page, setPage] = useState(1);
-  const [rowsPerPage] = useState(10);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const [sortField, setSortField] = useState("market_cap_rank");
   const [sortDirection, setSortDirection] = useState("asc");
 
@@ -58,16 +63,46 @@ const Cryptocurrencies = () => {
 
   return (
     <div style={{ padding: 20 }}>
-      {/* Search Bar */}
-      <TextField
-        fullWidth
-        placeholder="Search Cryptocurrency"
-        onChange={(e) => setSearchTerm(e.target.value)}
-        style={{ marginBottom: 20 }}
-      />
+      <Grid container spacing={2} style={{ marginBottom: 20 }}>
+        <Grid item size={{ xs: 12, sm: 12, md: 10, lg: 10 }}>
+            <h1>Cryptocurrency Prices by Market Cap</h1>
+        </Grid>
+        <Grid item size={{ xs: 12, sm: 12, md: 2, lg: 2 }}></Grid>
+      </Grid>
+      <Grid container spacing={2} style={{ marginBottom: 20 }}>
+        {/* Search Bar Section */}
+        <Grid item size={{ xs: 12, sm: 12, md: 10, lg: 10 }}>
+          <TextField
+            fullWidth
+            placeholder="Search Cryptocurrency"
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </Grid>
+
+        {/* Rows per Page Selector Section */}
+        <Grid item size={{ xs: 12, sm: 12, md: 2, lg: 2 }}>
+          <FormControl fullWidth variant="outlined">
+            <InputLabel id="rows-per-page-label">Rows per Page</InputLabel>
+            <Select
+              labelId="rows-per-page-label"
+              value={rowsPerPage}
+              onChange={(e) => {
+                setRowsPerPage(e.target.value);
+                setPage(1); // Reset to the first page
+              }}
+            >
+              <MenuItem value={5}>5</MenuItem>
+              <MenuItem value={10}>10</MenuItem>
+              <MenuItem value={20}>20</MenuItem>
+              <MenuItem value={50}>50</MenuItem>
+            </Select>
+          </FormControl>
+        </Grid>
+      </Grid>
 
       {/* Crypto Table */}
-      <TableContainer component={Paper}>
+      <TableContainer component={Paper} 
+        style={{ overflowX: "auto"}}>
         <Table>
           <TableHead>
             <TableRow>
