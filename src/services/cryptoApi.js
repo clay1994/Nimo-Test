@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 const cryptoApiHeaders = {
-    'x-rapidapi-key': process.env.REACT_APP_COINGECKO_KEY,
+    'x-cg-demo-api-key': process.env.REACT_APP_COINGECKO_KEY,
 }
 
 const baseUrl = process.env.REACT_APP_COINGECKO_API_URL;
@@ -13,14 +13,14 @@ export const cryptoApi = createApi({
     baseQuery: fetchBaseQuery({baseUrl}),
     endpoints: (builder) => ({
         getCryptos: builder.query({
-            query: (count) => createRequest(`/coins?limit=${count}`)
+            query: () => createRequest(`/coins/markets?vs_currency=usd`)
         }),
-        getCryotoDetails: builder.query({
-            query: (coinId) => createRequest(`/coin/${coinId}`)
-        }),
-        getCryotoHistory: builder.query({
-            query: ({coinId, timePeriod}) => createRequest(`/coin/${coinId}/history?timePeriod=${timePeriod}`)
-        })
+        // getCryotoDetails: builder.query({
+        //     query: (coinId) => createRequest(`/coin/${coinId}`)
+        // }),
+        // getCryotoHistory: builder.query({
+        // //     query: ({coinId, timePeriod}) => createRequest(`/coin/${coinId}/history?timePeriod=${timePeriod}`)
+        // })
     })
 })
 
