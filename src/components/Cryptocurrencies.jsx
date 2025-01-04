@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import millify from 'millify';
+import { Link } from 'react-router-dom';
 import {
   Table,
   TableBody,
@@ -156,9 +158,11 @@ const Cryptocurrencies = () => {
                     style={{ width: 30, height: 30 }}
                   />
                 </TableCell>
-                <TableCell>{crypto.name}</TableCell>
-                <TableCell>${crypto.current_price.toLocaleString()}</TableCell>
-                <TableCell>${crypto.market_cap.toLocaleString()}</TableCell>
+                <TableCell> 
+                    <Link to={`/crypto/${crypto.id}`}>{crypto.name}</Link>
+                </TableCell>
+                <TableCell>${millify(crypto.current_price)}</TableCell>
+                <TableCell>${millify(crypto.market_cap)}</TableCell>
               </TableRow>
             ))}
           </TableBody>
