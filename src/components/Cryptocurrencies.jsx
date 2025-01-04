@@ -16,6 +16,7 @@ import {
   MenuItem,
   FormControl,
   InputLabel,
+  Typography
 } from "@mui/material";
 import Grid from '@mui/material/Grid2';
 import { ClipLoader } from "react-spinners";
@@ -67,7 +68,7 @@ const Cryptocurrencies = () => {
     <div style={{ padding: 20 }}>
       <Grid container spacing={2} style={{ marginBottom: 20 }}>
         <Grid item size={{ xs: 12, sm: 12, md: 10, lg: 10 }}>
-            <h1>Cryptocurrency Prices by Market Cap</h1>
+            <Typography variant="h4" className='common-title'>Cryptocurrency Prices by Market Cap</Typography>
         </Grid>
         <Grid item size={{ xs: 12, sm: 12, md: 2, lg: 2 }}></Grid>
       </Grid>

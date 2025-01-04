@@ -21,18 +21,11 @@ a:hover{
 
 .app{
     display: flex;
-    overflow: hidden;
 }
 
 .navbar{
     flex: 0.2;
     background-color: rgb(0, 21, 41);
-}
-
-.main{
-    flex: 0.8;
-    width: 100%;
-    
 }
 .routes{
     padding: 20px;
@@ -75,16 +68,33 @@ a:hover{
     justify-content: center;
     align-items: center;
 }
-
-@media screen and (max-width:1170px){
-    .main{
-        margin-left: 50px;
+  
+/* small devices*/
+@media screen and (max-width: 800px) {
+    .main {
+        margin: 6%; 
     }
 }
 
-@media screen and (max-width:1000px){
-    .main{
-        margin-left: 100px;
+/* For screens between 800px and 900px */
+@media screen and (max-width: 900px) and (min-width: 800px) {
+    .main {
+        margin-left: 30%;
+    }
+}
+
+/* Exact fix for 900px */
+@media screen and (min-width: 900px) and (max-width: 900px) {
+    .main {
+        margin-left: 6%; 
+    }
+}
+
+/* For screens 1200px and above */
+@media screen and (min-width: 1200px) {
+    .main {
+        margin-left: 1%; 
+        margin-right: 1%; 
     }
 }
 
@@ -96,13 +106,6 @@ a:hover{
 
     .navbar{
         flex: 1;
-    }
-
-    .main{
-        flex: 1;
-        margin-top: 90px;
-        margin-left: 0px;
-        margin-right: 10px;
     }
 
     .nav-container{

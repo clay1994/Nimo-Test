@@ -1,34 +1,26 @@
 import React from 'react';
-import { Route, Link, Routes } from 'react-router-dom';
-import { Layout, Typography, Space } from 'antd';
-import { NavBar, Cryptocurrencies,CryptoDetails } from './components';
+import { Route, Routes } from 'react-router-dom';
+import { Typography, Box } from '@mui/material';
+import Grid from '@mui/material/Grid2';
+import { NavBar, Cryptocurrencies, CryptoDetails } from './components';
 import './App.css';
 
 const App = () => {
   return (
-    <div className='app'>
-      <div className='navbar'>
+    <Grid container spacing={3}>
+      <Grid item size={{ sm: 12, md: 3, lg: 2 }}>
         <NavBar />
-      </div>
-      <div className='main'>
-        <Layout>
-          <div className='routes'>
-            <Routes>
-              <Route exact path="/" element={<Cryptocurrencies />}></Route>
-              <Route exact path="/crypto/:coinId" element={<CryptoDetails />}></Route>
-            </Routes>
-          </div>
-        </Layout>
-
-        <div className='footer'>
-          <Typography.Title level={5} style={{ color: 'white', textAlign: 'center' }}>
-            Crypterra  <br />
-            All right reserved
-          </Typography.Title>
+      </Grid>
+      <Grid item size={{ sm: 12, md: 9, lg: 10 }} spacing={2} paddingTop={8}>
+        <div className='main'>
+          <Routes>
+            <Route exact path="/" element={<Cryptocurrencies />} />
+            <Route exact path="/crypto/:coinId" element={<CryptoDetails />} />
+          </Routes>
         </div>
-      </div>
-    </div>
-  )
-}
+      </Grid>
+    </Grid>
+  );
+};
 
-export default App
+export default App;
