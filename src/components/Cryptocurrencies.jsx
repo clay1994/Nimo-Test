@@ -65,7 +65,7 @@ const Cryptocurrencies = () => {
   if (isFetching) return <ClipLoader size={35} color="#1890ff" />;
 
   return (
-    <div style={{ padding: 20 }}>
+    <div className="main-layout">
       <Grid container spacing={2} style={{ marginBottom: 20 }}>
         <Grid item size={{ xs: 12, sm: 12, md: 10, lg: 10 }}>
             <Typography variant="h4" className='common-title'>Cryptocurrency Prices by Market Cap</Typography>

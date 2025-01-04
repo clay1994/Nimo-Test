@@ -102,84 +102,82 @@ const CryptoDetails = () => {
     ];
 
     return (
-        <>
+        <div className="main-layout">
             {cryptoDetails && (
-                <div style={{ padding: 20 }}>
-                    <Grid container spacing={3}>
+                <Grid container spacing={3}>
 
-                        {/* Heading Section */}
-                        <Grid item xs={12}>
-                            <Typography variant="h4" gutterBottom className='common-title'>
-                                {cryptoDetails.name} ({cryptoDetails.symbol}) Price
-                            </Typography>
-                            <Typography variant="body1">
-                                {cryptoDetails.name} live price in US dollars. View value
-                                statistics, market cap, and supply.
-                            </Typography>
-                        </Grid>
-
-
-                        {/* Select Time Period */}
-                        {/* <Grid item xs={12}>
-                            <FormControl fullWidth>
-                                <Select
-                                    value={timePeriod}
-                                    onChange={(e) => setTimePeriod(e.target.value)}
-                                    displayEmpty
-                                >
-                                    {time.map((date) => (
-                                        <MenuItem key={date} value={date}>
-                                            {date}
-                                        </MenuItem>
-                                    ))}
-                                </Select>
-                            </FormControl>
-                        </Grid> */}
-
-                        {/* Line Chart */}
-                        {/* {coinHistory && (
-                            <Grid item xs={12}>
-                            <Paper>
-                                <LineChart
-                                coinHistory={coinHistory}
-                                currentPrice={millify(cryptoDetails.market_data.current_price.usd)}
-                                coinName={cryptoDetails.name}
-                                />
-                            </Paper>
-                            </Grid>
-                        )} */}
-
-                        {/* Description and Links */}
-                        <Grid item xs={12} spacing={2}>
-                            <Typography variant="h5" className='common-title'>What is {cryptoDetails.name}</Typography>
-                            <Typography>{HTMLReactParser(cryptoDetails.description.en)}</Typography>
-                        </Grid>
-
-                        {/* Statistics Section */}
-                        <Grid item size={{ xs: 12, sm: 12, md: 6, lg: 6 }}>
-                            <Typography variant="h5" className='common-title'>{cryptoDetails.name} Value Statistics</Typography>
-                            {stats.map(({ icon, title, value }) => (
-                                <Grid container spacing={2} padding={1} key={title} alignItems="center">
-                                    <Grid item xs={2}>{icon}</Grid>
-                                    <Grid item xs={6}><Typography>{title}:</Typography></Grid>
-                                    <Grid item xs={4}><Typography><b>{value}</b></Typography></Grid>
-                                </Grid>
-                            ))}
-                        </Grid>
-                        <Grid item size={{ xs: 12, sm: 12, md: 6, lg: 6 }}>
-                            <Typography variant="h5" className='common-title'>Other Statistics</Typography>
-                            {genericStats.map(({ icon, title, value }) => (
-                                <Grid container spacing={2} padding={1} key={title} alignItems="center">
-                                    <Grid item xs={2}>{icon}</Grid>
-                                    <Grid item xs={6}><Typography>{title}:</Typography></Grid>
-                                    <Grid item xs={4}><Typography><b>{value}</b></Typography></Grid>
-                                </Grid>
-                            ))}
-                        </Grid>
+                    {/* Heading Section */}
+                    <Grid item xs={12}>
+                        <Typography variant="h4" gutterBottom className='common-title'>
+                            {cryptoDetails.name} ({cryptoDetails.symbol}) Price
+                        </Typography>
+                        <Typography variant="body1">
+                            {cryptoDetails.name} live price in US dollars. View value
+                            statistics, market cap, and supply.
+                        </Typography>
                     </Grid>
-                </div>
+
+
+                    {/* Select Time Period */}
+                    {/* <Grid item xs={12}>
+                        <FormControl fullWidth>
+                            <Select
+                                value={timePeriod}
+                                onChange={(e) => setTimePeriod(e.target.value)}
+                                displayEmpty
+                            >
+                                {time.map((date) => (
+                                    <MenuItem key={date} value={date}>
+                                        {date}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                    </Grid> */}
+
+                    {/* Line Chart */}
+                    {/* {coinHistory && (
+                        <Grid item xs={12}>
+                        <Paper>
+                            <LineChart
+                            coinHistory={coinHistory}
+                            currentPrice={millify(cryptoDetails.market_data.current_price.usd)}
+                            coinName={cryptoDetails.name}
+                            />
+                        </Paper>
+                        </Grid>
+                    )} */}
+
+                    {/* Description and Links */}
+                    <Grid item xs={12} spacing={2}>
+                        <Typography variant="h5" className='common-title'>What is {cryptoDetails.name}</Typography>
+                        <Typography>{HTMLReactParser(cryptoDetails.description.en)}</Typography>
+                    </Grid>
+
+                    {/* Statistics Section */}
+                    <Grid item size={{ xs: 12, sm: 12, md: 6, lg: 6 }}>
+                        <Typography variant="h5" className='common-title'>{cryptoDetails.name} Value Statistics</Typography>
+                        {stats.map(({ icon, title, value }) => (
+                            <Grid container spacing={2} padding={1} key={title} alignItems="center">
+                                <Grid item xs={2}>{icon}</Grid>
+                                <Grid item xs={6}><Typography>{title}:</Typography></Grid>
+                                <Grid item xs={4}><Typography><b>{value}</b></Typography></Grid>
+                            </Grid>
+                        ))}
+                    </Grid>
+                    <Grid item size={{ xs: 12, sm: 12, md: 6, lg: 6 }}>
+                        <Typography variant="h5" className='common-title'>Other Statistics</Typography>
+                        {genericStats.map(({ icon, title, value }) => (
+                            <Grid container spacing={2} padding={1} key={title} alignItems="center">
+                                <Grid item xs={2}>{icon}</Grid>
+                                <Grid item xs={6}><Typography>{title}:</Typography></Grid>
+                                <Grid item xs={4}><Typography><b>{value}</b></Typography></Grid>
+                            </Grid>
+                        ))}
+                    </Grid>
+                </Grid>
             )}
-        </>
+        </div>
     );
 };
 
