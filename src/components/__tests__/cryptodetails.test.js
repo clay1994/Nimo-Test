@@ -41,7 +41,7 @@ test("renders cryptocurrency details correctly", () => {
     </BrowserRouter>
   );
 
-  // Check for the cryptocurrency name and symbol
+  // Check for the cryptocurrency details
   expect(screen.getByText("Bitcoin (BTC) Price")).toBeInTheDocument();
   expect(screen.getByText("Bitcoin live price in US dollars. View value statistics, market cap, and supply.")).toBeInTheDocument();
 
