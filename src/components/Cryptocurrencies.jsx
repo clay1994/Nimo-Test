@@ -94,10 +94,10 @@ const Cryptocurrencies = () => {
                 setPage(1); // Reset to the first page
               }}
             >
-              <MenuItem value={5}>5</MenuItem>
-              <MenuItem value={10}>10</MenuItem>
-              <MenuItem value={20}>20</MenuItem>
-              <MenuItem value={50}>50</MenuItem>
+              <MenuItem key={5} value={5}>5</MenuItem>
+              <MenuItem key={10} value={10}>10</MenuItem>
+              <MenuItem key={20} value={20}>20</MenuItem>
+              <MenuItem key={50} value={50}>50</MenuItem>
             </Select>
           </FormControl>
         </Grid>
@@ -156,7 +156,7 @@ const Cryptocurrencies = () => {
                   <img
                     src={crypto.image}
                     alt={crypto.name}
-                    style={{ width: 30, height: 30 }}
+                    className="crypto-image"
                   />
                 </TableCell>
                 <TableCell> 

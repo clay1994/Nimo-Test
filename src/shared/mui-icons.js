@@ -6,3 +6,4 @@ export { default as PriorityHighOutlinedIcon } from '@mui/icons-material/Priorit
 export { default as DateRangeOutlinedIcon } from '@mui/icons-material/DateRangeOutlined';
 export { default as PeopleAltOutlinedIcon } from '@mui/icons-material/PeopleAltOutlined';
 export { default as StackedLineChartOutlinedIcon } from '@mui/icons-material/StackedLineChartOutlined';
+export { default as MenuOutlinedIcon } from '@mui/icons-material/MenuOutlined';

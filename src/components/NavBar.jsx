@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Menu, Typography, Avatar } from 'antd';
 import { Link } from 'react-router-dom';
-import { HomeOutlined, BulbOutlined, FundOutlined, MenuOutlined } from '@ant-design/icons/lib/icons';
+import {
+    StackedLineChartOutlined,
+    MenuOutlined
+} from "@mui/icons-material";
 import icon from '../images/cryptocurrency.png';
 
 const NavBar = () => {
@@ -38,7 +41,7 @@ const NavBar = () => {
             </div>
             {activeMenu && (
                 <Menu theme='dark'>
-                    <Menu.Item icon={<FundOutlined />}>
+                    <Menu.Item icon={<StackedLineChartOutlined />}>
                         <Link to="/">Cryptocurrencies</Link>
                     </Menu.Item>
                 </Menu>

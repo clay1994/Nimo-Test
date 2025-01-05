@@ -1,17 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import HTMLReactParser from "html-react-parser";
 import { useParams } from "react-router-dom";
 import millify from "millify";
-import { useGetCryotoDetailsQuery, useGetCryotoHistoryQuery } from "../services/cryptoApi";
-import LineChart from "./LineChart";
+import { useGetCryotoDetailsQuery } from "../services/cryptoApi";
 import ClipLoader from "react-spinners/ClipLoader";
 import Grid from '@mui/material/Grid2';
 import {
-    Typography,
-    FormControl,
-    Select,
-    MenuItem,
-    Paper,
+    Typography
 } from "@mui/material";
 import {
     MonetizationOnOutlined,
@@ -25,13 +20,9 @@ import {
 
 const CryptoDetails = () => {
     const { coinId } = useParams();
-    const [timePeriod, setTimePeriod] = useState("7d");
     const { data: cryptoDetails, isFetching } = useGetCryotoDetailsQuery(coinId);
-    //   const { data: coinHistory } = useGetCryotoHistoryQuery({ coinId, timePeriod });
 
     if (isFetching) return <ClipLoader size="35" color="#1890ff" />;
-
-    const time = ["3h", "24h", "7d", "30d", "1y", "3m", "3y", "5y"];
 
     const stats = [
         {
@@ -116,37 +107,6 @@ const CryptoDetails = () => {
                             statistics, market cap, and supply.
                         </Typography>
                     </Grid>
-
-
-                    {/* Select Time Period */}
-                    {/* <Grid item xs={12}>
-                        <FormControl fullWidth>
-                            <Select
-                                value={timePeriod}
-                                onChange={(e) => setTimePeriod(e.target.value)}
-                                displayEmpty
-                            >
-                                {time.map((date) => (
-                                    <MenuItem key={date} value={date}>
-                                        {date}
-                                    </MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl>
-                    </Grid> */}
-
-                    {/* Line Chart */}
-                    {/* {coinHistory && (
-                        <Grid item xs={12}>
-                        <Paper>
-                            <LineChart
-                            coinHistory={coinHistory}
-                            currentPrice={millify(cryptoDetails.market_data.current_price.usd)}
-                            coinName={cryptoDetails.name}
-                            />
-                        </Paper>
-                        </Grid>
-                    )} */}
 
                     {/* Description and Links */}
                     <Grid item xs={12} spacing={2}>

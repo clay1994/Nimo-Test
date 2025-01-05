@@ -1,6 +1,5 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { Typography, Box } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import { NavBar, Cryptocurrencies, CryptoDetails } from './components';
 import './App.css';
