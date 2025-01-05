@@ -118,7 +118,7 @@ const CryptoDetails = () => {
     <div className="main-layout">
       <Grid container spacing={3}>
         {/* Heading Section */}
-        <Grid item xs={12}>
+        <Grid xs={12}>
           <Typography variant="h4" gutterBottom className="common-title">
             {cryptoDetails.name} ({cryptoDetails.symbol?.toUpperCase()}) Price
           </Typography>
@@ -129,7 +129,7 @@ const CryptoDetails = () => {
         </Grid>
 
         {/* Description and Links */}
-        <Grid item xs={12}>
+        <Grid xs={12}>
           <Typography variant="h5" className="common-title">
             What is {cryptoDetails.name}?
           </Typography>
@@ -141,17 +141,17 @@ const CryptoDetails = () => {
         </Grid>
 
         {/* Statistics Section */}
-        <Grid item xs={12} md={6}>
+        <Grid xs={12} md={6}>
           <Typography variant="h5" className="common-title">
             {cryptoDetails.name} Value Statistics
           </Typography>
           {stats.map(({ icon, title, value }) => (
             <Grid container spacing={2} padding={1} key={title} alignItems="center">
-              <Grid item xs={2}>{icon}</Grid>
-              <Grid item xs={6}>
+              <Grid xs={2}>{icon}</Grid>
+              <Grid xs={6}>
                 <Typography>{title}:</Typography>
               </Grid>
-              <Grid item xs={4}>
+              <Grid xs={4}>
                 <Typography>
                   <b>{value}</b>
                 </Typography>
@@ -159,17 +159,17 @@ const CryptoDetails = () => {
             </Grid>
           ))}
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid xs={12} md={6}>
           <Typography variant="h5" className="common-title">
             Other Statistics
           </Typography>
           {genericStats.map(({ icon, title, value }) => (
             <Grid container spacing={2} padding={1} key={title} alignItems="center">
-              <Grid item xs={2}>{icon}</Grid>
-              <Grid item xs={6}>
+              <Grid xs={2}>{icon}</Grid>
+              <Grid xs={6}>
                 <Typography>{title}:</Typography>
               </Grid>
-              <Grid item xs={4}>
+              <Grid xs={4}>
                 <Typography>
                   <b>{value}</b>
                 </Typography>

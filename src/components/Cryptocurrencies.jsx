@@ -84,16 +84,16 @@ const Cryptocurrencies = () => {
   return (
     <div className="main-layout">
       <Grid container spacing={2} style={{ marginBottom: 20 }}>
-        <Grid item size={{ xs: 12, sm: 12, md: 10, lg: 10 }}>
+        <Grid size={{ xs: 12, sm: 12, md: 10, lg: 10 }}>
           <Typography variant="h4" className="common-title">
             Cryptocurrency Prices by Market Cap
           </Typography>
         </Grid>
-        <Grid item size={{ xs: 12, sm: 12, md: 2, lg: 2 }}></Grid>
+        <Grid size={{ xs: 12, sm: 12, md: 2, lg: 2 }}></Grid>
       </Grid>
       <Grid container spacing={2} style={{ marginBottom: 20 }}>
         {/* Search Bar Section */}
-        <Grid item size={{ xs: 12, sm: 12, md: 10, lg: 10 }}>
+        <Grid size={{ xs: 12, sm: 12, md: 10, lg: 10 }}>
           <TextField
             fullWidth
             placeholder="Search Cryptocurrency"
@@ -102,7 +102,7 @@ const Cryptocurrencies = () => {
         </Grid>
 
         {/* Rows per Page Selector Section */}
-        <Grid item size={{ xs: 12, sm: 12, md: 2, lg: 2 }}>
+        <Grid size={{ xs: 12, sm: 12, md: 2, lg: 2 }}>
           <FormControl fullWidth variant="outlined">
             <InputLabel id="rows-per-page-label">Rows per Page</InputLabel>
             <Select
