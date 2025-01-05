@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import millify from 'millify';
-import { Link } from 'react-router-dom';
+import millify from "millify";
+import { Link } from "react-router-dom";
 import {
   Table,
   TableBody,
@@ -16,14 +16,15 @@ import {
   MenuItem,
   FormControl,
   InputLabel,
-  Typography
+  Typography,
+  Alert,
 } from "@mui/material";
-import Grid from '@mui/material/Grid2';
+import Grid from "@mui/material/Grid2";
 import { ClipLoader } from "react-spinners";
 import { useGetCryptosQuery } from "../services/cryptoApi";
 
 const Cryptocurrencies = () => {
-  const { data: cryptosList, isFetching } = useGetCryptosQuery();
+  const { data: cryptosList, isFetching, isError, error } = useGetCryptosQuery();
   const [cryptos, setCryptos] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [page, setPage] = useState(1);
@@ -38,6 +39,8 @@ const Cryptocurrencies = () => {
         coin.name.toLowerCase().includes(searchTerm.toLowerCase())
       );
       setCryptos(filteredData);
+    } else {
+      setCryptos([]);
     }
   }, [cryptosList, searchTerm]);
 
@@ -61,14 +64,30 @@ const Cryptocurrencies = () => {
     page * rowsPerPage
   );
 
+  // Ensure pagination is within valid boundaries
+  const handlePageChange = (e, value) => {
+    setPage(Math.max(1, Math.min(value, Math.ceil(cryptos.length / rowsPerPage))));
+  };
+
   // Loader
   if (isFetching) return <ClipLoader size={35} color="#1890ff" />;
+
+  // Handle API errors
+  if (isError) {
+    return (
+      <Alert severity="error" style={{ marginTop: 20 }}>
+        {error?.message || "Failed to fetch cryptocurrencies. Please try again later."}
+      </Alert>
+    );
+  }
 
   return (
     <div className="main-layout">
       <Grid container spacing={2} style={{ marginBottom: 20 }}>
         <Grid item size={{ xs: 12, sm: 12, md: 10, lg: 10 }}>
-            <Typography variant="h4" className='common-title'>Cryptocurrency Prices by Market Cap</Typography>
+          <Typography variant="h4" className="common-title">
+            Cryptocurrency Prices by Market Cap
+          </Typography>
         </Grid>
         <Grid item size={{ xs: 12, sm: 12, md: 2, lg: 2 }}></Grid>
       </Grid>
@@ -94,25 +113,30 @@ const Cryptocurrencies = () => {
                 setPage(1); // Reset to the first page
               }}
             >
-              <MenuItem key={5} value={5}>5</MenuItem>
-              <MenuItem key={10} value={10}>10</MenuItem>
-              <MenuItem key={20} value={20}>20</MenuItem>
-              <MenuItem key={50} value={50}>50</MenuItem>
+              {[5, 10, 20, 50].map((value) => (
+                <MenuItem key={value} value={value}>
+                  {value}
+                </MenuItem>
+              ))}
             </Select>
           </FormControl>
         </Grid>
       </Grid>
 
       {/* Crypto Table */}
-      <TableContainer component={Paper} 
-        style={{ overflowX: "auto"}}>
+      <TableContainer
+        component={Paper}
+        style={{ overflowX: "auto" }}
+      >
         <Table>
           <TableHead>
             <TableRow>
               <TableCell>
                 <TableSortLabel
                   active={sortField === "market_cap_rank"}
-                  direction={sortField === "market_cap_rank" ? sortDirection : "asc"}
+                  direction={
+                    sortField === "market_cap_rank" ? sortDirection : "asc"
+                  }
                   onClick={() => handleSort("market_cap_rank")}
                 >
                   Rank
@@ -131,7 +155,9 @@ const Cryptocurrencies = () => {
               <TableCell>
                 <TableSortLabel
                   active={sortField === "current_price"}
-                  direction={sortField === "current_price" ? sortDirection : "asc"}
+                  direction={
+                    sortField === "current_price" ? sortDirection : "asc"
+                  }
                   onClick={() => handleSort("current_price")}
                 >
                   Price
@@ -149,23 +175,31 @@ const Cryptocurrencies = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {paginatedCryptos.map((crypto) => (
-              <TableRow key={crypto.id}>
-                <TableCell>{crypto.market_cap_rank}</TableCell>
-                <TableCell>
-                  <img
-                    src={crypto.image}
-                    alt={crypto.name}
-                    className="crypto-image"
-                  />
-                </TableCell>
-                <TableCell> 
+            {paginatedCryptos.length > 0 ? (
+              paginatedCryptos.map((crypto) => (
+                <TableRow key={crypto.id}>
+                  <TableCell>{crypto.market_cap_rank}</TableCell>
+                  <TableCell>
+                    <img
+                      src={crypto.image}
+                      alt={crypto.name}
+                      className="crypto-image"
+                    />
+                  </TableCell>
+                  <TableCell>
                     <Link to={`/crypto/${crypto.id}`}>{crypto.name}</Link>
+                  </TableCell>
+                  <TableCell>${millify(crypto.current_price)}</TableCell>
+                  <TableCell>${millify(crypto.market_cap)}</TableCell>
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={5} align="center">
+                  No cryptocurrencies found.
                 </TableCell>
-                <TableCell>${millify(crypto.current_price)}</TableCell>
-                <TableCell>${millify(crypto.market_cap)}</TableCell>
               </TableRow>
-            ))}
+            )}
           </TableBody>
         </Table>
       </TableContainer>
@@ -174,7 +208,7 @@ const Cryptocurrencies = () => {
       <Pagination
         count={Math.ceil(cryptos.length / rowsPerPage)}
         page={page}
-        onChange={(e, value) => setPage(value)}
+        onChange={handlePageChange}
         style={{ marginTop: 20, display: "flex", justifyContent: "center" }}
       />
     </div>
