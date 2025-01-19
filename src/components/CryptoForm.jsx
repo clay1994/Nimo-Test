@@ -12,6 +12,7 @@ import {
   Radio,
   Button,
   Box,
+  Typography,
 } from '@mui/material';
 
 const CryptoForm = () => {
@@ -27,6 +28,9 @@ const CryptoForm = () => {
       analytics: false,
     },
   });
+
+  // errors
+  const [errors, setErrors] = useState({})
 
   // Handle input change
   const handleChange = (event) => {
@@ -46,17 +50,47 @@ const CryptoForm = () => {
     }
   };
 
+  // Validate form data
+  const validate = () => {
+    const newErrors = {};
+
+    // Validate Crypto Name
+    if (!formData.cryptoName.trim()) {
+      newErrors.cryptoName = 'Crypto name is required.';
+    }
+
+    // Validate Crypto Type
+    if (!formData.cryptoType) {
+      newErrors.cryptoType = 'Please select a crypto type.';
+    }
+
+    // Validate Terms Accepted
+    if (!formData.termsAccepted) {
+      newErrors.termsAccepted = 'You must accept the terms and conditions.';
+    }
+
+    // Validate Additional Features (at least one must be checked)
+    const { staking, trading, analytics } = formData.additionalFeatures;
+    if (!staking && !trading && !analytics) {
+      newErrors.additionalFeatures = 'Select at least one additional feature.';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0 ? true : false;
+  };
+
   // Handle form submission
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("Form data: ");
-    console.log(formData);
+    if (validate()) {
+      console.log('Form Data:', formData);
+    }
   };
 
   return (
     <Box sx={{ margin: 'auto', mt: 5 }}>
       <form onSubmit={handleSubmit}>
-        {/* Text Field */}
+        {/* Crypto Name Field */}
         <TextField
           label="Crypto Name"
           name="cryptoName"
@@ -65,10 +99,12 @@ const CryptoForm = () => {
           fullWidth
           margin="normal"
           variant="outlined"
+          error={!!errors.cryptoName}
+          helperText={errors.cryptoName}
         />
 
-        {/* Dropdown */}
-        <FormControl fullWidth margin="normal">
+        {/* Crypto Type Dropdown */}
+        <FormControl fullWidth margin="normal" error={!!errors.cryptoType}>
           <InputLabel id="crypto-type-label">Crypto Type</InputLabel>
           <Select
             labelId="crypto-type-label"
@@ -80,9 +116,14 @@ const CryptoForm = () => {
             <MenuItem value="Ethereum">Ethereum</MenuItem>
             <MenuItem value="Altcoin">Altcoin</MenuItem>
           </Select>
+          {errors.cryptoType && (
+            <Typography color="error" variant="caption">
+              {errors.cryptoType}
+            </Typography>
+          )}
         </FormControl>
 
-        {/* Checkbox Group */}
+        {/* Terms Accepted Checkbox */}
         <FormGroup>
           <FormControlLabel
             control={
@@ -94,6 +135,11 @@ const CryptoForm = () => {
             }
             label="I accept the terms and conditions"
           />
+          {errors.termsAccepted && (
+            <Typography color="error" variant="caption">
+              {errors.termsAccepted}
+            </Typography>
+          )}
         </FormGroup>
 
         {/* Additional Features Checkboxes */}
@@ -128,6 +174,11 @@ const CryptoForm = () => {
             }
             label="Enable Analytics"
           />
+          {errors.additionalFeatures && (
+            <Typography color="error" variant="caption">
+              {errors.additionalFeatures}
+            </Typography>
+          )}
         </FormGroup>
 
         {/* Radio Buttons */}
@@ -160,9 +211,8 @@ const CryptoForm = () => {
         >
           Submit
         </Button>
-
-        <br/><br/><br/> <pre>{JSON.stringify(formData, null, 2) }</pre>
       </form>
+      <pre style={{ marginTop: 20 }}>{JSON.stringify(formData, null, 2) }</pre>
     </Box>
   );
 };
