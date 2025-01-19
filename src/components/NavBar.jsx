@@ -3,7 +3,8 @@ import { Button, Menu, Typography, Avatar } from 'antd';
 import { Link } from 'react-router-dom';
 import {
     StackedLineChartOutlined,
-    MenuOutlined
+    MenuOutlined,
+    PeopleAltOutlined
 } from "@mui/icons-material";
 import icon from '../images/cryptocurrency.png';
 
@@ -43,6 +44,9 @@ const NavBar = () => {
                 <Menu theme='dark'>
                     <Menu.Item icon={<StackedLineChartOutlined />}>
                         <Link to="/">Cryptocurrencies</Link>
+                    </Menu.Item>
+                    <Menu.Item icon={<PeopleAltOutlined />}>
+                        <Link to="/crypto-form">Crypto Form</Link>
                     </Menu.Item>
                 </Menu>
             )}

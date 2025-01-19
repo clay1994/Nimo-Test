@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Grid from '@mui/material/Grid2';
-import { NavBar, Cryptocurrencies, CryptoDetails } from './components';
+import { NavBar, Cryptocurrencies, CryptoDetails, CryptoForm } from './components';
 import './App.css';
 
 const App = () => {
@@ -15,6 +15,7 @@ const App = () => {
           <Routes>
             <Route exact path="/" element={<Cryptocurrencies />} />
             <Route exact path="/crypto/:coinId" element={<CryptoDetails />} />
+            <Route exact path="/crypto-form" element={<CryptoForm />} />
           </Routes>
         </div>
       </Grid>
