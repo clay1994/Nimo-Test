@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { RouterLink } from 'react-router-dom'
 import millify from "millify";
 import { Link } from "react-router-dom";
 import {
@@ -18,10 +19,15 @@ import {
   InputLabel,
   Typography,
   Alert,
+  Card,
+  CardContent,
+  CardActionArea
 } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import { ClipLoader } from "react-spinners";
 import { useGetCryptosQuery } from "../services/cryptoApi";
+import PushPinOutlined from '@mui/icons-material/PushPinOutlined';
+import CloseIcon from '@mui/icons-material/Close';
 
 const Cryptocurrencies = () => {
   const { data: cryptosList, isFetching, isError, error } = useGetCryptosQuery();
@@ -31,6 +37,7 @@ const Cryptocurrencies = () => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [sortField, setSortField] = useState("market_cap_rank");
   const [sortDirection, setSortDirection] = useState("asc");
+  const [pinList, setPinList] = useState([]);
 
   // Filter cryptos based on the search term
   useEffect(() => {
@@ -69,6 +76,23 @@ const Cryptocurrencies = () => {
     setPage(Math.max(1, Math.min(value, Math.ceil(cryptos.length / rowsPerPage))));
   };
 
+  // handle pin
+  const handlePin = (coinId) => {
+    const found = cryptosList.find((coin) => coin.id == coinId);
+    setPinList(
+      [ 
+        ...pinList, 
+        found 
+      ]
+    );
+  };
+
+  
+  const remove = (coinId) => {
+    const newArray = pinList.filter(item => item.id !== coinId);
+    setPinList(newArray);
+  };
+
   // Loader
   if (isFetching) return <ClipLoader size={35} color="#1890ff" />;
 
@@ -83,6 +107,27 @@ const Cryptocurrencies = () => {
 
   return (
     <div className="main-layout">
+      {/* card content */}
+      
+      {
+        pinList.map((crypto) => (
+          <Card >
+            <CloseIcon 
+              onClick={() => remove(crypto.id)}/>
+            <Link to={`/crypto/${crypto.id}`}>
+              <CardContent orientation="horizontal" >
+                <div>
+                <Typography level="title-lg">{crypto.name}</Typography>
+
+                </div>
+              </CardContent>
+            </Link>
+          </Card>
+        ))
+      }
+   
+
+
       <Grid container spacing={2} style={{ marginBottom: 20 }}>
         <Grid size={{ xs: 12, sm: 12, md: 10, lg: 10 }}>
           <Typography variant="h4" className="common-title">
@@ -178,7 +223,10 @@ const Cryptocurrencies = () => {
             {paginatedCryptos.length > 0 ? (
               paginatedCryptos.map((crypto) => (
                 <TableRow key={crypto.id}>
-                  <TableCell>{crypto.market_cap_rank}</TableCell>
+                  <TableCell>
+                    <PushPinOutlined onClick={() => handlePin(crypto.id)}/> 
+                    {crypto.market_cap_rank}
+                  </TableCell>
                   <TableCell>
                     <img
                       src={crypto.image}
