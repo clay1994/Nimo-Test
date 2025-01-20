@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { usePostCryptoDataMutation } from "../services/cryptoApi";
 import {
   TextField,
   FormControl,
@@ -31,6 +32,8 @@ const CryptoForm = () => {
 
   // errors
   const [errors, setErrors] = useState({})
+
+  const [postCryptoData, { isLoading, isError, error }] = usePostCryptoDataMutation();
 
   // Handle input change
   const handleChange = (event) => {
@@ -80,10 +83,17 @@ const CryptoForm = () => {
   };
 
   // Handle form submission
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (validate()) {
-      console.log('Form Data:', formData);
+      try {
+        const response = await postCryptoData(formData).unwrap();
+        console.log('Form submitted successfully:', response);
+        alert('Form submitted successfully!');
+      } catch (err) {
+        console.error('Submission error:', err);
+        alert(`Error submitting the form: ${err.message}`);
+      }
     }
   };
 
@@ -212,6 +222,7 @@ const CryptoForm = () => {
           Submit
         </Button>
       </form>
+      {isError && <p style={{ color: 'red' }}>Error: {error?.data?.message || 'An error occurred.'}</p>}
       <pre style={{ marginTop: 20 }}>{JSON.stringify(formData, null, 2) }</pre>
     </Box>
   );

@@ -2,7 +2,8 @@ import React from "react";
 import HTMLReactParser from "html-react-parser";
 import { useParams } from "react-router-dom";
 import millify from "millify";
-import { useGetCryotoDetailsQuery } from "../services/cryptoApi";
+import { useGetCryptoDetailsQuery } from '../services/cryptoApi';
+
 import ClipLoader from "react-spinners/ClipLoader";
 import Grid from "@mui/material/Grid2";
 import { Typography, Alert } from "@mui/material";
@@ -18,7 +19,7 @@ import {
 
 const CryptoDetails = () => {
   const { coinId } = useParams();
-  const { data: cryptoDetails, isFetching, error } = useGetCryotoDetailsQuery(coinId);
+  const { data: cryptoDetails, isFetching, error } = useGetCryptoDetailsQuery(coinId);
 
   if (isFetching) return <ClipLoader size={35} color="#1890ff" />;
   
